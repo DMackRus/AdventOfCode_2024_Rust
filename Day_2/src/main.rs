@@ -30,7 +30,6 @@ fn main() {
     println!("Part 1 took {:?}", duration);
 
     // Part 2 - Test reports but allow for ONE power dampener (remove one index from list)
-
     let start = Instant::now();
     let mut safe_report_count : i32 = 0;
     for nuclear_report in data.iter(){
@@ -41,18 +40,14 @@ fn main() {
             safe_report_count += 1;
         }
         else{
-            println!("Report beforehand {:?}, fail_index {}",nuclear_report, fail_index);
             while fail_index > -1{
                 let mut copy_report = nuclear_report.clone();
 
                 copy_report.remove(fail_index as usize);
 
-                println!("Report after {:?}", copy_report);
-
                 let (_, safe_report) = is_safe_report(&copy_report);
 
                 if(safe_report){
-                    println!("SUCCESS");
                     safe_report_count += 1;
                     break;
                 }
