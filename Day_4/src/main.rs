@@ -19,11 +19,115 @@ fn main() {
 
     // Part 1, find all instances of "XMAS" in the string, its two-dimensional
     // So the instance can be horizontal, vertical or diagonal, including backwards
+    let XMAS_counter = part_1(&data);
 
+    let duration = start.elapsed();
+    println!("Number of XMAS found {}", XMAS_counter);
+    println!("Part 1 took {:?}", duration);
+
+    // Part 2 - It was actually an X-Mas puzzle
+    // M * S
+    // * A *    // These are what were looking for now!
+    // M * S
+
+    let start = Instant::now();
+
+    let X_MAS_counter = part_2(&data);
+
+    let duration = start.elapsed();
+    println!("Number of XMAS found {}", X_MAS_counter);
+    println!("Part 2 took {:?}", duration);
+}
+
+fn part_2(data: &Vec<String>) -> i32{
     // Get the width and height of the data input
     let width = data[0].len() as usize;
     let height = data.len() as usize;
 
+    // N, NE, E, SE, S, SW, W, NW
+    let direction_offsets: [(i32, i32); 8] = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)];
+
+    let XMAS_string = ['X', 'M', 'A', 'S'];
+    let mut X_MAS_counter = 0;
+
+    for (i, line) in data.iter().enumerate(){
+
+        // Loop through every letter in this line
+        for (j, letter) in line.chars().enumerate(){
+
+            // Check if M or S
+            let mut left_letter;
+            let mut right_letter;
+
+            if letter == 'M' || letter == 'S'{
+                left_letter = letter;
+            }
+            else{
+                continue;
+            }
+
+            // Check +2 +2 s in range of 2d array
+            if (j + 2) > width-1 || (i + 2) > height-1{
+                continue
+            }
+
+
+            // Check for letter M or S at other side
+            if data[i].chars().nth(j+2) == Option::from('M') {
+                right_letter = 'M';
+            }
+            else if data[i].chars().nth(j+2) == Option::from('S') {
+                right_letter = 'S';
+            }
+            else{
+                continue;
+            }
+
+
+
+            //Check if row below + 1 is A
+            if data[i+1].chars().nth(j+1) != Option::from('A'){
+                continue;
+            }
+
+
+            // Check if two rows below is opposite of the cross
+            if right_letter == 'S'{
+                // bottom left should be M
+                if data[i+2].chars().nth(j) != Option::from('M'){
+                    continue;
+                }
+            }
+            else if right_letter == 'M' {
+                if data[i+2].chars().nth(j) != Option::from('S'){
+                    continue;
+                }
+            }
+
+            if left_letter == 'S'{
+                // bottom left should be M
+                if data[i+2].chars().nth(j+2) != Option::from('M'){
+                    continue;
+                }
+            }
+            else if left_letter == 'M' {
+                if data[i+2].chars().nth(j+2) != Option::from('S'){
+                    continue;
+                }
+            }
+
+            // Sum the number of valid directions to count how many XMAS
+            X_MAS_counter += 1;
+        }
+    }
+
+    X_MAS_counter as i32
+}
+
+fn part_1(data: &Vec<String>) -> i32{
+    // Get the width and height of the data input
+    let width = data[0].len() as usize;
+    let height = data.len() as usize;
 
     // N, NE, E, SE, S, SW, W, NW
     let direction_offsets: [(i32, i32); 8] = [(-1, 0), (-1, 1), (0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1)];
@@ -93,10 +197,8 @@ fn main() {
 
         }
     }
-    let duration = start.elapsed();
-    println!("Number of XMAS found {}", XMAS_counter);
-    println!("Part 1 took {:?}", duration);
 
+    XMAS_counter as i32
 }
 
 fn read_data(file_path: &str) -> io::Result<Vec<String>>{
