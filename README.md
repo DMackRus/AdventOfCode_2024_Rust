@@ -6,3 +6,5 @@ My solutions to the advent of code 2024 challenges, implemented in Rust whilst I
 - **Day 2 : Red Nosed Reports** ✅
 - **Day 3 : Mull It Over** (part 1 of 2)
 - **Day 4 : Ceres Search** ✅
+- **Day 5 : Print Queue**
+- **Day 6 : Guard Gallivant**
