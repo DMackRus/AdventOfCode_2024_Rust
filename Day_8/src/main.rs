@@ -1,5 +1,6 @@
 use std::fs::File;
 use std::io::{self, BufRead};
+use std::time::Instant;
 
 fn main() -> io::Result<()> {
     // Path to the file
@@ -17,21 +18,22 @@ fn main() -> io::Result<()> {
         .filter_map(|line| line.ok()) // Filter out errors (optional)
         .collect();
 
-    // Print the vector
-    for line in &lines {
-        println!("{}", line);
-    }
-
     // --------------------------------- PART 1 -----------------------------------------------
     // Find all the antinodes
+    let start = Instant::now();
     let mut answer = find_all_antinodes(&lines);
+    let duration = start.elapsed();
 
-    println!("{}", answer);
+    println!("Part 1 answer: {}", answer);
+    println!("Time for part 1 {:?}", duration);
 
     // Part 2
+    let start = Instant::now();
     answer = find_all_antinodes_part_2(&lines);
+    let duration = start.elapsed();
 
-    println!("{}", answer);
+    println!("Part 2 answer: {}", answer);
+    println!("Time for part 2 {:?}", duration);
 
     Ok(())
 }
@@ -60,17 +62,11 @@ fn find_all_antinodes_part_2(input: &Vec<String>) -> i64 {
                         for antinode in all_antinodes.iter(){
                             antinodes[antinode.1 as usize][antinode.0 as usize] = 1;
                         }
-
-                        println!("Pair is {:?} and {:?}", (j1, i1), (j2, i2));
-                        pretty_print(&antinodes);
                     }
                 }
             }
         }
     }
-
-    // Print the antinode 2D grid
-    pretty_print(&antinodes);
 
     // Sum up the antinodes
     num_antinodes = antinodes.iter()
@@ -171,9 +167,6 @@ fn find_all_antinodes(input: &Vec<String>) -> i64 {
             }
         }
     }
-
-    // Print the antinode 2D grid
-    pretty_print(&antinodes);
 
     // Sum up the antinodes
     num_antinodes = antinodes.iter()
