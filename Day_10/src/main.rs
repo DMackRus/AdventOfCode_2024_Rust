@@ -31,6 +31,7 @@ fn main() -> io::Result<()> {
     // Loop through vector of vectors and search for 0, when zero found, search all adjacent tiles
     // for next number in chain. Add valid directions to vector until you reach 9 or all trails die.
     let mut valid_hikes = 0;
+    let mut score = 0;
     for (i, line) in data.iter().enumerate(){
         for (j, number) in line.iter().enumerate(){
             if *number == 0 {
@@ -111,11 +112,13 @@ fn main() -> io::Result<()> {
                 // println!("trailhead score for hike that starts at {} {} is {}", i, j, list_length);
 
                 valid_hikes += list_length;
+                score += all_hikes.len();
             }
         }
     }
 
     println!("valid hikes: {}", valid_hikes);
+    println!("score: {}", score);
 
     Ok(())
 }
