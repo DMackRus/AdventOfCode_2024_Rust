@@ -2,7 +2,7 @@ use std::fs::File;
 use std::io::{self, Read, BufRead};
 
 fn main() -> io::Result<()> {
-    let file_path = "test.txt";
+    let file_path = "data.txt";
 
     // Open the file
     let mut file = File::open(file_path)?;
@@ -24,23 +24,98 @@ fn main() -> io::Result<()> {
         })
         .collect();
 
+
+    let width = data[0].len();
+    let height = data.len();
+
     // Loop through vector of vectors and search for 0, when zero found, search all adjacent tiles
     // for next number in chain. Add valid directions to vector until you reach 9 or all trails die.
+    let mut valid_hikes = 0;
     for (i, line) in data.iter().enumerate(){
         for (j, number) in line.iter().enumerate(){
-
-
             if *number == 0 {
                 // Start a hike
+                println!("hike started at index {} {}", i, j);
 
-                // Get valid indices
-                let valid_indices
+                let mut all_hikes: Vec<Vec<(i64, i64)>> = Vec::new();
+                let mut new_hikes: Vec<Vec<(i64, i64)>> = Vec::new();
 
+                all_hikes.push(Vec::new());
+                all_hikes[0].push((i as i64,j as i64));
+
+                for k in 1..10 {
+                    // println!("hike - {:?}", all_hikes);
+
+                    // Loop through the current valid hikes
+                    let mut valid_next_steps = 0;
+                    for (m, hike) in all_hikes.iter().enumerate(){
+
+                        // current index is last index pair in hike
+                        let current_index = hike[hike.len() - 1];
+                        let valid_indices = get_valid_indices(width as i64, height as i64, current_index.0, current_index.1);
+
+                        for index in valid_indices {
+                            if data[index.0 as usize][index.1 as usize] == k {
+                                new_hikes.push(hike.clone());
+                                new_hikes[valid_next_steps].push(index);
+                                valid_next_steps += 1;
+                                // println!("New hikes {:?}", new_hikes);
+                            }
+                        }
+                    }
+
+                    // If no valid hikes, exit.
+                    if new_hikes.len() < 0 {
+                        break;
+                    }
+
+                    // Copy
+                    all_hikes = new_hikes.clone();
+                    new_hikes.clear();
+                }
+
+                // Loop through all hikes and remove the duplicates
+                let mut end_points: Vec<(i64, i64)> = Vec::new();
+                let mut list_length = 0;
+
+                // println!("Number of hikes {}", all_hikes.len());
+
+                for hike in all_hikes.iter(){
+
+                    if list_length == 0{
+                        end_points.push((hike[hike.len() - 1].0,
+                                         hike[hike.len() - 1].1));
+                        list_length += 1;
+                    }
+
+                    let mut found = false;
+                    for k in 0..list_length{
+
+                        if hike[hike.len() - 1].0 == end_points[k].0 &&
+                            hike[hike.len() - 1].1 == end_points[k].1{
+                            // do nothing
+                            found = true;
+                            break;
+                        }
+                    }
+
+                    if !found{
+                        list_length += 1;
+                        end_points.push((hike[hike.len() - 1].0,
+                                         hike[hike.len() - 1].1));
+                    }
+                }
+
+                // println!("{:?}", all_hikes);
+                //
+                // println!("trailhead score for hike that starts at {} {} is {}", i, j, list_length);
+
+                valid_hikes += list_length;
             }
         }
-
-        println!("{:?}", line);
     }
+
+    println!("valid hikes: {}", valid_hikes);
 
     Ok(())
 }
