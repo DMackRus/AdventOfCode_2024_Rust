@@ -12,7 +12,7 @@ My solutions to the advent of code 2024 challenges, implemented in Rust whilst I
 - **Day 8 : Resonant Collinearity** ✅
 - **Day 9 : Disk Fragmenter** ✅
 - **Day 10 : Hoof it**
-- **Day 11 :**
+- **Day 11 : Plutonian Pebbles** ✅
 - **Day 12 :**
 - **Day 13 :**
 - **Day 14 :**
