@@ -8,10 +8,10 @@ My solutions to the advent of code 2024 challenges, implemented in Rust whilst I
 - **Day 4 : Ceres Search** ✅
 - **Day 5 : Print Queue**
 - **Day 6 : Guard Gallivant**
-- **Day 7 : Bridge Repair**
+- **Day 7 : Bridge Repair** ✅
 - **Day 8 : Resonant Collinearity** ✅
 - **Day 9 : Disk Fragmenter** ✅
-- **Day 10 : Hoof it**
+- **Day 10 : Hoof it** ✅
 - **Day 11 : Plutonian Pebbles** ✅
 - **Day 12 :**
 - **Day 13 :**
