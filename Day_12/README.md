@@ -147,4 +147,4 @@ The larger example from before now has the following updated prices:
 - A region of M plants with price 5 * 6 = 30.
 - A region of S plants with price 3 * 6 = 18.
 
-Your puzzle answer was **0000**
+Your puzzle answer was **830566**
