@@ -6,15 +6,15 @@ My solutions to the advent of code 2024 challenges, implemented in Rust whilst I
 - **Day 2 : Red Nosed Reports** ✅
 - **Day 3 : Mull It Over** (part 1 of 2)
 - **Day 4 : Ceres Search** ✅
-- **Day 5 : Print Queue**
+- **Day 5 : Print Queue** (part 1 of 2)
 - **Day 6 : Guard Gallivant**
 - **Day 7 : Bridge Repair** ✅
 - **Day 8 : Resonant Collinearity** ✅
 - **Day 9 : Disk Fragmenter** ✅
 - **Day 10 : Hoof it** ✅
 - **Day 11 : Plutonian Pebbles** ✅
-- **Day 12 :**
-- **Day 13 :**
+- **Day 12 : Garden Groups** ✅
+- **Day 13 : Claw Contraption** ✅
 - **Day 14 :**
 - **Day 15 :**
 - **Day 16 :**
@@ -26,4 +26,3 @@ My solutions to the advent of code 2024 challenges, implemented in Rust whilst I
 - **Day 22 :**
 - **Day 23 :**
 - **Day 24 :**
-- **Day 25 :**
